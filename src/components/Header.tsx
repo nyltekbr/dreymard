@@ -1,67 +1,129 @@
+import { Calendar, MapPin, Menu, Phone, Star, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { clinica } from '../data/medico'
+import { clinica, medico } from '../data/medico'
 import { Container, WhatsAppIcon } from './ui'
 
 const links = [
-  { href: '#medico', label: 'Quem atende' },
-  { href: '#formacao', label: 'Formação' },
-  { href: '#clinica', label: 'Clínica' },
-  { href: '#valores', label: 'Valores' },
-  { href: '#contato', label: 'Contato' },
+  { href: '#topo', id: 'topo', label: 'Início' },
+  { href: '#medico', id: 'medico', label: 'Quem atende' },
+  { href: '#como-funciona', id: 'como-funciona', label: 'Como funciona' },
+  { href: '#formacao', id: 'formacao', label: 'Formação' },
+  { href: '#clinica', id: 'clinica', label: 'Clínica' },
+  { href: '#valores', id: 'valores', label: 'Valores' },
+  { href: '#contato', id: 'contato', label: 'Contato' },
 ]
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false)
+  const [active, setActive] = useState('topo')
+  const [open, setOpen] = useState(false)
+
+  // A pílula acesa acompanha a seção visível, como o "Início" da referência.
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 24)
-    on()
-    window.addEventListener('scroll', on, { passive: true })
-    return () => window.removeEventListener('scroll', on)
+    const els = links.map((l) => document.getElementById(l.id)).filter(Boolean) as HTMLElement[]
+    if (!('IntersectionObserver' in window) || !els.length) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        const vis = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        if (vis[0]) setActive(vis[0].target.id)
+      },
+      { rootMargin: '-40% 0px -50% 0px', threshold: [0, 0.2, 0.5] },
+    )
+    els.forEach((el) => io.observe(el))
+    return () => io.disconnect()
   }, [])
 
-  const dark = !scrolled
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-paper/85 backdrop-blur-md border-b border-line/70 py-2' : 'py-4'
-      }`}
-    >
-      <Container className="flex items-center justify-between gap-6">
-        <a href="#topo" className="flex items-center gap-3">
-          <span className="flex h-11 w-11 items-center justify-center md:h-12 md:w-12">
-            <img src="/logo-angiovas.png" alt="Angiovas" className="h-9 w-9 object-contain md:h-10 md:w-10" />
-          </span>
-          <span className="leading-tight">
-            <span className={`block font-display text-[1.25rem] font-semibold tracking-tight ${dark ? 'text-white' : 'text-blue'}`}>
-              Angiovas
-            </span>
-            <span className={`t-eyebrow block text-[0.58rem] ${dark ? 'text-white/55' : 'text-muted'}`}>Sul de Minas</span>
-          </span>
-        </a>
-
-        <nav className="hidden items-center gap-7 md:flex">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className={`text-[0.92rem] font-medium transition ${dark ? 'text-white/80 hover:text-white' : 'text-ink/80 hover:text-blue'}`}
-            >
-              {l.label}
+    <header className="fixed inset-x-0 top-0 z-50">
+      {/* barra utilitária */}
+      <div className="hidden bg-night-deep text-[0.72rem] text-slate-300 sm:block">
+        <Container className="flex h-6 items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <a href={clinica.whatsappHref} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 font-bold text-[#7ee2a0] hover:text-white">
+              <WhatsAppIcon size={11} /> WhatsApp {clinica.whatsapp}
             </a>
-          ))}
-        </nav>
+            <span className="text-slate-600">•</span>
+            <a href={clinica.telefoneHref} className="inline-flex items-center gap-1.5 font-semibold text-slate-200 hover:text-white">
+              <Phone size={11} /> {clinica.telefone}
+            </a>
+            <span className="text-slate-600">•</span>
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin size={11} /> {clinica.endereco} • {clinica.cidade}
+            </span>
+          </div>
+          <div className="flex items-center gap-3 text-slate-400">
+            <a href={medico.doctoralia} target="_blank" rel="noreferrer" className="hover:text-white">Avaliações na Doctoralia</a>
+          </div>
+        </Container>
+      </div>
 
-        <a
-          href={clinica.whatsappHref}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-full bg-[#25d366] px-4 py-2.5 text-sm font-semibold text-[#07301a] transition hover:bg-[#1fbf5b]"
-        >
-          <WhatsAppIcon size={15} />
-          <span className="hidden sm:inline">Agendar no WhatsApp</span>
-          <span className="sm:hidden">WhatsApp</span>
-        </a>
-      </Container>
+      {/* header principal */}
+      <div className="border-b border-white/10 bg-night/95 backdrop-blur-md">
+        <Container className="flex h-[66px] items-center justify-between gap-4 sm:h-[76px]">
+          <a href="#topo" className="flex items-center gap-3">
+            <img src="/logo-angiovas.png" alt="" className="h-10 w-10 object-contain sm:h-11 sm:w-11" aria-hidden />
+            <span className="leading-none">
+              <span className="block font-display text-[1.05rem] font-extrabold tracking-tight text-white">Angiovas</span>
+              <span className="mt-1 block text-[0.6rem] font-bold uppercase tracking-[0.1em] text-blue-light/80">Angiologia e Cirurgia Vascular</span>
+            </span>
+          </a>
+
+          <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Seções">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className={`whitespace-nowrap rounded-full px-3 py-2 text-[0.82rem] font-bold transition-colors duration-200 ${
+                  active === l.id ? 'bg-blue text-white' : 'text-slate-200 hover:bg-white/10 hover:text-white'
+                }`}
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <a
+              href={clinica.whatsappHref}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 whitespace-nowrap rounded-xl border border-blue-light/50 bg-blue px-4 py-2.5 text-[0.8rem] font-bold text-white transition-colors hover:bg-blue-deep"
+            >
+              <Calendar size={15} />
+              <span className="hidden sm:inline">Agendar consulta</span>
+              <span className="sm:hidden">Agendar</span>
+            </a>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 text-white xl:hidden"
+            >
+              {open ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
+        </Container>
+
+        {open && (
+          <div className="border-t border-white/10 bg-night xl:hidden">
+            <Container className="grid gap-1 py-3">
+              {links.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className={`rounded-xl px-4 py-3 text-[0.95rem] font-bold ${active === l.id ? 'bg-blue text-white' : 'text-slate-200 hover:bg-white/10'}`}
+                >
+                  {l.label}
+                </a>
+              ))}
+              <a href={medico.doctoralia} target="_blank" rel="noreferrer" className="mt-1 inline-flex items-center gap-2 rounded-xl px-4 py-3 text-[0.9rem] font-bold text-blue-light">
+                <Star size={15} /> Avaliações na Doctoralia
+              </a>
+            </Container>
+          </div>
+        )}
+      </div>
     </header>
   )
 }

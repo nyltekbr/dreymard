@@ -1,76 +1,43 @@
-import { Children, isValidElement, useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 export function Container({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`mx-auto w-full max-w-[1200px] px-5 md:px-8 ${className}`}>{children}</div>
+  return <div className={`mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${className}`}>{children}</div>
 }
 
-export function Eyebrow({ children, tone = 'blue' }: { children: ReactNode; tone?: 'blue' | 'red' | 'light' }) {
-  const color = tone === 'red' ? 'text-red' : tone === 'light' ? 'text-white/70' : 'text-blue'
-  const line = tone === 'light' ? 'bg-white/40' : tone === 'red' ? 'bg-red' : 'bg-blue'
+/* Rótulo pequeno com ícone, como "CORPO CLÍNICO ESPECIALIZADO" na referência. */
+export function Eyebrow({
+  children,
+  icon,
+  tone = 'blue',
+}: {
+  children: ReactNode
+  icon?: ReactNode
+  tone?: 'blue' | 'light' | 'red'
+}) {
+  const color = tone === 'light' ? 'text-blue-light' : tone === 'red' ? 'text-red' : 'text-blue'
   return (
-    <p className={`t-eyebrow flex items-center gap-3 ${color}`}>
-      <span className={`inline-block h-px w-8 ${line}`} />
+    <p className={`t-eyebrow flex items-center gap-2 ${color}`}>
+      {icon ?? <span className="inline-block h-[7px] w-[7px] rounded-full bg-current" />}
       {children}
     </p>
   )
 }
 
-/*
-  Título cinético: cada linha (separada por <br />) é revelada de baixo para
-  cima. Com `auto`, anima ao carregar; sem, anima quando o pai .reveal entra.
-*/
 export function SectionTitle({
   children,
   className = '',
-  auto = false,
   as: Tag = 'h2',
 }: {
   children: ReactNode
   className?: string
-  auto?: boolean
   as?: 'h1' | 'h2'
 }) {
-  const lines: ReactNode[][] = [[]]
-  Children.toArray(children).forEach((c) => {
-    if (isValidElement(c) && c.type === 'br') lines.push([])
-    else lines[lines.length - 1].push(c)
-  })
-  const size = Tag === 'h1' ? 'text-[2.6rem] md:text-[3.4rem] lg:text-[4rem]' : 'text-[2.1rem] md:text-[3.1rem]'
-  return (
-    <Tag className={`t-display mt-4 ${size} ${auto ? 'kin-auto' : ''} ${className}`}>
-      {lines.map((l, i) => (
-        <span key={i} className="kin-line" style={{ '--i': i } as React.CSSProperties}>
-          <span>{l}</span>
-        </span>
-      ))}
-    </Tag>
-  )
-}
-
-/* Palavra que gira dentro do título. */
-export function FlipWord({ words, interval = 2400 }: { words: string[]; interval?: number }) {
-  const [i, setI] = useState(0)
-  useEffect(() => {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce) return
-    const t = setInterval(() => setI((v) => (v + 1) % words.length), interval)
-    return () => clearInterval(t)
-  }, [words.length, interval])
-  return (
-    <span className="kin-flip" aria-live="off">
-      <span style={{ transform: `translateY(calc(${i} * -1.04em))` }}>
-        {words.map((w) => (
-          <span key={w} aria-hidden={w !== words[i]}>
-            {w}
-          </span>
-        ))}
-      </span>
-    </span>
-  )
+  const size = Tag === 'h1' ? 'text-[2.4rem] sm:text-[3rem] lg:text-[4rem]' : 'text-[2rem] sm:text-[2.5rem] lg:text-[2.9rem]'
+  return <Tag className={`t-display mt-4 ${size} ${className}`}>{children}</Tag>
 }
 
 /* Número que conta até o valor quando entra na tela. */
-export function CountUp({ to, className = '', duration = 1400 }: { to: number; className?: string; duration?: number }) {
+export function CountUp({ to, className = '', duration = 900 }: { to: number; className?: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null)
   const [v, setV] = useState(0)
   useEffect(() => {
@@ -109,29 +76,64 @@ export function CountUp({ to, className = '', duration = 1400 }: { to: number; c
 type BtnProps = {
   href: string
   children: ReactNode
-  variant?: 'primary' | 'ghost' | 'light' | 'ghost-light' | 'wa'
+  variant?: 'primary' | 'secondary' | 'danger' | 'outline' | 'ghost-light' | 'pill-primary' | 'pill-outline'
+  size?: 'md' | 'sm'
   className?: string
   external?: boolean
 }
 
-export function Button({ href, children, variant = 'primary', className = '', external }: BtnProps) {
+/*
+  Botões da referência: cantos 12px, 52px de altura, texto 13px/750, ícone à
+  esquerda. "pill" é a variante arredondada do card flutuante.
+*/
+export function Button({ href, children, variant = 'primary', size = 'md', className = '', external }: BtnProps) {
   const base =
-    'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[0.95rem] font-semibold transition-all duration-300'
+    'inline-flex items-center justify-center gap-2 border font-bold leading-tight transition-colors duration-200'
+  const dims = size === 'sm' ? 'min-h-[40px] rounded-lg px-4 text-[0.78rem]' : 'min-h-[52px] rounded-xl px-5 text-[0.84rem]'
   const styles = {
-    primary: 'bg-blue text-white hover:bg-blue-deep hover:-translate-y-0.5 shadow-[0_10px_30px_-12px_rgba(0,64,164,0.6)]',
-    ghost: 'border border-line bg-transparent text-ink hover:border-blue hover:text-blue',
-    light: 'bg-white text-blue hover:bg-paper hover:-translate-y-0.5',
-    'ghost-light': 'border border-white/35 bg-transparent text-white hover:border-white hover:bg-white/10',
-    wa: 'bg-[#25d366] text-[#07301a] hover:bg-[#1fbf5b] hover:-translate-y-0.5 shadow-[0_10px_30px_-12px_rgba(37,211,102,0.7)]',
+    primary: 'border-blue-light/50 bg-blue text-white hover:bg-blue-deep',
+    secondary: 'border-[#6f86a8]/70 bg-[#10285a] text-white hover:bg-[#1a3a78]',
+    danger: 'btn-pulse border-[#ef94a0] bg-[#4a1a22] text-[#ffe9ea] hover:bg-[#63303b] font-extrabold',
+    outline: 'border-line bg-white text-navy hover:border-slate-300 hover:bg-slate-50',
+    'ghost-light': 'border-white/30 bg-white/5 text-white hover:bg-white/10',
+    'pill-primary': 'rounded-full! border-transparent bg-blue text-white shadow-lg shadow-blue/25 hover:bg-blue-deep',
+    'pill-outline': 'rounded-full! border-2 border-navy bg-white text-navy hover:bg-navy hover:text-white',
   }
   return (
     <a
       href={href}
-      className={`${base} ${styles[variant]} ${className}`}
+      className={`${base} ${dims} ${styles[variant]} ${className}`}
       {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
     >
       {children}
     </a>
+  )
+}
+
+/* Link azul com seta que desliza no hover. */
+export function ArrowLink({ href, children, external, className = '' }: { href: string; children: ReactNode; external?: boolean; className?: string }) {
+  return (
+    <a
+      href={href}
+      className={`group inline-flex items-center gap-1.5 text-[0.84rem] font-bold text-blue transition-colors hover:text-navy ${className}`}
+      {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
+    >
+      {children}
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden>
+        <path d="M5 12h14" />
+        <path d="m13 6 6 6-6 6" />
+      </svg>
+    </a>
+  )
+}
+
+export function InstagramIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
   )
 }
 

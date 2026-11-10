@@ -1,7 +1,10 @@
 /*
-  Fontes: Doctoralia (perfil público, outubro/2026) e Currículo Lattes
+  Fontes: Doctoralia (perfil público, novembro/2026) e Currículo Lattes
   (espelho público do Escavador, coleta de 06/12/2025). Tabela de valores
-  informada pela cliente em 20/10/2026.
+  informada pela cliente em 20/10/2026. Correções do próprio médico em
+  10/11/2026: 40 anos de formado, Doppler arterial ou venoso, exame feito
+  na clínica depois da consulta (procedimento à parte), formação jurídica
+  separada da médica, link do Lattes e Instagram.
 */
 
 export const medico = {
@@ -11,11 +14,19 @@ export const medico = {
   rqe: 'RQE 14.896',
   especialidades: ['Angiologia', 'Cirurgia Vascular', 'Cirurgia Cardiovascular'],
   anoFormatura: 1987,
+  // Informado pelo próprio médico em 10/11/2026 ("sou formado há 40 anos").
+  anosDeFormado: 40,
+  // Currículo Lattes na plataforma do CNPq (ID confirmado em 10/11/2026 na
+  // página antiga da Angiovas e na equipe da Perícia Científica Aplicada).
+  lattes: 'http://lattes.cnpq.br/9781245166540101',
+  // Instagram: o médico pediu para colocar na página. Nenhum perfil público
+  // foi encontrado em 10/11/2026. Preencher com o @ (sem o arroba) e o bloco aparece.
+  instagram: '',
   // Foto pública do perfil na Doctoralia. Trocar pelo arquivo oficial do médico.
   foto: 'https://s3-sa-east-1.amazonaws.com/doctoralia.com.br/doctor/4f9921/4f99218adef7f322dfd89a92a6b3cd25_large.jpg',
   doctoralia:
     'https://www.doctoralia.com.br/eymard-francisco-brito-de-oliveira/angiologista-cirurgiao-vascular-cirurgiao-cardiovascular/varginha',
-  avaliacoes: { nota: '5,0', total: 497, fonte: 'Doctoralia' },
+  avaliacoes: { nota: '5,0', total: 501, fonte: 'Doctoralia' },
 }
 
 export const clinica = {
@@ -27,6 +38,9 @@ export const clinica = {
   // Celular/WhatsApp informado pela Ketlyn em 20/10/2026 como "+55 35 9757-5101";
   // celular em MG tem 9 dígitos, então foi gravado com o 9 na frente. Confirmar.
   whatsapp: '(35) 99757-5101',
+  // Telefone fixo da clínica (Doctoralia).
+  telefone: '(35) 3222-1424',
+  telefoneHref: 'tel:+553532221424',
   whatsappHref:
     'https://wa.me/5535997575101?text=' +
     encodeURIComponent('Olá! Quero marcar uma consulta com o Dr. Eymard.'),
@@ -36,6 +50,30 @@ export const clinica = {
     'https://www.google.com/maps?q=Av.+Brasil,+27,+Vila+Pinto,+Varginha+-+MG,+37010-680&output=embed&z=16',
   mapaLink: 'https://www.google.com/maps/search/?api=1&query=Av.+Brasil,+27,+Vila+Pinto,+Varginha+-+MG',
 }
+
+export const instagramHref = medico.instagram ? `https://www.instagram.com/${medico.instagram}/` : ''
+
+/* Como funciona o atendimento: consulta e exame são procedimentos separados. */
+export const etapas = [
+  {
+    titulo: 'Consulta',
+    sub: 'Avaliação clínica completa, com explicação na hora',
+    texto:
+      'Converso com você, examino as suas pernas, artérias e veias e explico o que estou encontrando. Você sai sabendo o diagnóstico provável e os próximos passos.',
+  },
+  {
+    titulo: 'Doppler na clínica, se precisar',
+    sub: 'Arterial ou venoso, procedimento à parte com valor próprio',
+    texto:
+      'Quando o exame é necessário, o ultrassom Doppler arterial ou venoso pode ser feito aqui na clínica, logo depois da consulta. É um procedimento à parte, com valor próprio, mas sem marcar em outro lugar nem voltar outro dia.',
+  },
+  {
+    titulo: 'Tratamento definido',
+    sub: 'Decidido junto com você, sem pressa',
+    texto:
+      'Com o resultado em mãos, decidimos juntos: acompanhamento, escleroterapia com espuma ou cirurgia, se for o melhor caminho.',
+  },
+]
 
 export const condicoes = [
   'Varizes e microvarizes',
@@ -61,9 +99,9 @@ export const servicos = [
       'Avalio a circulação das suas pernas, artérias, veias e linfáticos, e explico o diagnóstico e o plano de tratamento na mesma conversa.',
   },
   {
-    titulo: 'Doppler na hora',
+    titulo: 'Doppler arterial ou venoso',
     texto:
-      'Faço o Ecocolor Doppler no consultório, durante a consulta. Sem dor, sem contraste e sem esperar laudo de outro lugar.',
+      'Ultrassom Doppler arterial ou venoso feito aqui na clínica, depois da consulta, como procedimento à parte. Sem dor, sem contraste e sem esperar laudo de outro lugar.',
   },
   {
     titulo: 'Varizes sem cirurgia',
@@ -81,16 +119,16 @@ export type Valor = { atendimento: string; grupo: string; valor: string }
 
 export const valores: Valor[] = [
   { grupo: 'Particular', atendimento: 'Consulta', valor: 'R$ 800,00' },
-  { grupo: 'Particular', atendimento: 'Exame (Ecocolor Doppler)', valor: 'R$ 800,00' },
+  { grupo: 'Particular', atendimento: 'Exame Doppler arterial ou venoso', valor: 'R$ 800,00' },
   { grupo: 'Particular', atendimento: 'Escleroterapia de varizes com espuma', valor: 'R$ 600,00' },
   { grupo: 'Luto Pax', atendimento: 'Consulta', valor: 'R$ 400,00' },
-  { grupo: 'Luto Pax', atendimento: 'Exame (Ecocolor Doppler)', valor: 'R$ 400,00' },
+  { grupo: 'Luto Pax', atendimento: 'Exame Doppler arterial ou venoso', valor: 'R$ 400,00' },
   { grupo: 'Cartão de Todos', atendimento: 'Consulta', valor: 'R$ 400,00' },
-  { grupo: 'Cartão de Todos', atendimento: 'Exame (Ecocolor Doppler)', valor: 'R$ 400,00' },
+  { grupo: 'Cartão de Todos', atendimento: 'Exame Doppler arterial ou venoso', valor: 'R$ 400,00' },
   { grupo: 'Plamaf', atendimento: 'Consulta', valor: 'R$ 400,00' },
-  { grupo: 'Plamaf', atendimento: 'Exame (Ecocolor Doppler)', valor: 'R$ 400,00' },
+  { grupo: 'Plamaf', atendimento: 'Exame Doppler arterial ou venoso', valor: 'R$ 400,00' },
   { grupo: 'Associação', atendimento: 'Consulta', valor: 'R$ 400,00' },
-  { grupo: 'Associação', atendimento: 'Exame (Doppler venoso)', valor: 'R$ 400,00' },
+  { grupo: 'Associação', atendimento: 'Exame Doppler arterial ou venoso', valor: 'R$ 400,00' },
 ]
 
 export const convenios = [
@@ -157,13 +195,11 @@ export const formacao: Formacao[] = [
     nota: 'Tese: eficácia de um simulador multimídia no ensino de videocirurgia na graduação em medicina',
     destaque: true,
   },
-  { periodo: '2004 a 2008', titulo: 'Graduação em Direito', instituicao: 'Faculdade de Direito de Varginha' },
   {
     periodo: '2006 a 2008',
     titulo: 'Mestrado em Medicina Legal e Forense',
     instituicao: 'Universidade de Valência, Espanha',
   },
-  { periodo: '2009', titulo: 'Especialização em Ciências Criminais', instituicao: 'Universidade Candido Mendes', nota: 'Tema: responsabilidade legal do médico' },
   {
     periodo: '2012 a 2015',
     titulo: 'Pós-doutorado (dois períodos)',
@@ -228,9 +264,9 @@ export const depoimentos = [
     texto: 'Excelente profissional. Muito experiente e atencioso.',
   },
   {
-    nome: 'Pb',
-    data: 'agosto de 2026',
-    texto: 'Muito gentil, descontraído e profissional e já faz o ultrassom pra um diagnóstico na hora!',
+    nome: 'Alessandra',
+    data: 'novembro de 2026',
+    texto: 'Dr. Eymard é um ótimo médico, muito atencioso, me passou muita segurança e ele é muito pontual.',
   },
   {
     nome: 'Kamila Leonel',

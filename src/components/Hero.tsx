@@ -1,111 +1,95 @@
-import { ArrowDown, Star } from 'lucide-react'
+import { FileText, Phone, Star } from 'lucide-react'
 import { clinica, medico } from '../data/medico'
-import { Button, Container, SectionTitle, WhatsAppIcon } from './ui'
+import { HeroImagens } from './HeroImagens'
+import { Button, Container, WhatsAppIcon } from './ui'
 
-
+/*
+  Fundo: fotos de atendimento humanizado em rodízio (HeroImagens), com tint azul e
+  a sombra navy vindo da esquerda como no hcor-hero__shade da referência. O texto
+  fica sobre a parte escura; a foto respira à direita. A foto do médico está na
+  seção "Prazer, sou o Dr. Eymard".
+*/
 export function Hero() {
+  const stats = [
+    { valor: `${medico.anosDeFormado}`, rotulo: 'anos de formado' },
+    { valor: `${medico.avaliacoes.nota}`, rotulo: `${medico.avaliacoes.total} opiniões na ${medico.avaliacoes.fonte}`, estrela: true },
+    { valor: medico.crm.replace('CRM ', '').replace('-MG', ''), rotulo: `${medico.crm} · ${medico.rqe}` },
+  ]
   return (
-    <section
-      id="topo"
-      className="relative overflow-hidden bg-night pt-32 pb-16 text-white md:pt-36 md:pb-20"
-      style={{
-        backgroundImage:
-          'radial-gradient(60% 70% at 78% 45%, rgba(0, 64, 164, 0.55) 0%, rgba(0, 64, 164, 0) 70%), radial-gradient(40% 50% at 70% 80%, rgba(220, 0, 8, 0.35) 0%, rgba(220, 0, 8, 0) 70%)',
-      }}
-    >
-      {/* traço de pulso no rodapé do hero: linha base apagada + segmento aceso que corre como num monitor */}
-      <svg
-        className="pointer-events-none absolute left-0 bottom-5 hidden h-14 w-full md:block"
-        viewBox="0 0 1440 120"
-        fill="none"
-        preserveAspectRatio="none"
-        aria-hidden
-      >
-        <path d="M0 60 H120 L135 60 L150 20 L170 100 L190 40 L210 75 L230 60 H480 L495 60 L510 20 L530 100 L550 40 L570 75 L590 60 H840 L855 60 L870 20 L890 100 L910 40 L930 75 L950 60 H1200 L1215 60 L1230 20 L1250 100 L1270 40 L1290 75 L1310 60 H1440" stroke="#ff4d55" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" opacity="0.22" />
-        <path
-          className="pulse-path"
-          d="M0 60 H120 L135 60 L150 20 L170 100 L190 40 L210 75 L230 60 H480 L495 60 L510 20 L530 100 L550 40 L570 75 L590 60 H840 L855 60 L870 20 L890 100 L910 40 L930 75 L950 60 H1200 L1215 60 L1230 20 L1250 100 L1270 40 L1290 75 L1310 60 H1440"
-          pathLength={1000}
-          stroke="#ff4d55"
-          strokeWidth="2.25"
-          strokeLinejoin="round"
-          strokeLinecap="round"
-        />
-      </svg>
+    <section id="topo" className="relative overflow-hidden bg-night pt-[66px] text-white sm:pt-[100px]">
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <HeroImagens className="absolute inset-0" />
+        <div className="hero-tint absolute inset-0" />
+        <div className="hero-shade absolute inset-0" />
+      </div>
 
-      <Container className="relative grid items-center gap-10 md:grid-cols-[1.05fr_0.95fr]">
-        <div className="relative z-10">
-          <p className="t-eyebrow kin-fade flex items-center gap-3 text-red-soft" style={{ '--d': '0.1s' } as React.CSSProperties}>
-            <span className="inline-block h-px w-8 bg-red" />
+      <Container className="relative grid items-center gap-12 pb-20 pt-16 sm:pt-20 lg:min-h-[calc(100svh-100px)] lg:grid-cols-[1.15fr_0.85fr] lg:gap-10 lg:pb-24 lg:pt-20">
+        <div>
+          <p className="kin-fade t-eyebrow flex items-center gap-2.5 text-blue-light" style={{ '--d': '0.05s' } as React.CSSProperties}>
+            <span className="inline-block h-[7px] w-[7px] rounded-full bg-blue-light" />
             {clinica.nome} · {clinica.tagline}
           </p>
 
-          <SectionTitle as="h1" auto className="mt-7 [&_em]:text-white/80">
-            Cuido da
+          <h1
+            className="kin-fade mt-6 max-w-[850px] font-display text-[clamp(2.1rem,8vw,3rem)] font-extrabold leading-[1.1] tracking-[-0.045em] text-white sm:text-[clamp(2.6rem,4.4vw,3.9rem)]"
+            style={{ '--d': '0.15s' } as React.CSSProperties}
+          >
+            Cuido da sua circulação
             <br />
-            <em>sua circulação</em>
-            <br />
-            há 20 anos.
-          </SectionTitle>
+            <span className="text-blue-light">há {medico.anosDeFormado} anos.</span>
+          </h1>
 
-          <p className="kin-fade mt-7 max-w-[50ch] text-[1.08rem] leading-relaxed text-white/70">
-            Sou o Dr. Eymard Brito de Oliveira, angiologista e cirurgião vascular em Varginha. Na consulta você
-            já sai com o ultrassom feito, o diagnóstico explicado e o tratamento definido.
+          <p className="kin-fade mt-6 max-w-[560px] text-[0.95rem] leading-[1.75] text-[#e1eaf2] sm:text-[1.06rem]" style={{ '--d': '0.25s' } as React.CSSProperties}>
+            Sou o Dr. Eymard Brito de Oliveira, angiologista e cirurgião vascular em Varginha, formado há{' '}
+            {medico.anosDeFormado} anos. Na consulta você sai com o diagnóstico explicado e, se precisar do exame, faz o
+            ultrassom Doppler arterial ou venoso aqui mesmo na clínica, logo depois.
           </p>
 
-          <div className="kin-fade mt-9 flex flex-wrap items-center gap-3" style={{ '--d': '0.8s' } as React.CSSProperties}>
-            <Button href={clinica.whatsappHref} variant="wa" external>
-              <WhatsAppIcon /> Marcar pelo WhatsApp
+          <div className="kin-fade mt-8 grid gap-2.5 sm:flex sm:flex-wrap" style={{ '--d': '0.35s' } as React.CSSProperties}>
+            <Button href={clinica.whatsappHref} variant="primary" external>
+              <WhatsAppIcon size={16} /> Marcar pelo WhatsApp
             </Button>
-            <Button href="#valores" variant="ghost-light">
-              Ver valores <ArrowDown size={15} />
+            <Button href={medico.lattes} variant="secondary" external>
+              <FileText size={16} /> Currículo Lattes
+            </Button>
+            <Button href={clinica.telefoneHref} variant="danger">
+              <Phone size={16} /> Ligar para a clínica
             </Button>
           </div>
 
-          <dl className="kin-fade mt-12 grid max-w-[560px] grid-cols-1 gap-5 border-t border-white/15 pt-6 sm:grid-cols-3 sm:gap-6" style={{ '--d': '1s' } as React.CSSProperties}>
-            <div>
-              <dt className="t-eyebrow text-white/45">Registro</dt>
-              <dd className="mt-1 text-[0.95rem] font-medium">{medico.crm}</dd>
-              <dd className="text-[0.8rem] text-white/55">{medico.rqe}</dd>
-            </div>
-            <div>
-              <dt className="t-eyebrow text-white/45">Nota dos pacientes</dt>
-              <dd className="mt-1 flex items-center gap-1 text-[0.95rem] font-medium">
-                <Star size={14} className="fill-red-soft text-red-soft" /> {medico.avaliacoes.nota}
-              </dd>
-              <dd className="text-[0.8rem] text-white/55">
-                {medico.avaliacoes.total} opiniões · {medico.avaliacoes.fonte}
-              </dd>
-            </div>
-            <div>
-              <dt className="t-eyebrow text-white/45">Exame</dt>
-              <dd className="mt-1 text-[0.95rem] font-medium">Doppler na hora</dd>
-              <dd className="text-[0.8rem] text-white/55">feito por mim, na consulta</dd>
-            </div>
-          </dl>
+          <p className="kin-fade mt-7 text-[0.95rem] font-extrabold leading-relaxed text-[#f1f8ff] sm:text-[1.1rem]" style={{ '--d': '0.45s' } as React.CSSProperties}>
+            {clinica.endereco}, {clinica.cidade}
+            <span className="px-2 font-extrabold text-blue-light">/</span>
+            {clinica.telefone}
+          </p>
         </div>
 
-        <figure
-          className="kin-fade relative mx-auto w-full max-w-[520px] md:-mr-4"
-          style={{ '--d': '0.3s' } as React.CSSProperties}
-        >
-          <div className="relative overflow-hidden rounded-[2rem] ring-1 ring-white/10 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.8)]">
-            <img
-              src={medico.foto}
-              alt={`Dr. ${medico.nome}`}
-              className="aspect-[4/5] w-full object-cover object-[50%_18%]"
-              loading="eager"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-night/80 via-transparent to-transparent" />
-            <figcaption className="absolute bottom-5 left-5 right-5">
-              <p className="font-display text-[1.1rem] font-semibold leading-tight text-white">{medico.nomeCurto}</p>
-              <p className="mt-1 text-[0.8rem] text-white/65">{medico.especialidades.join(' · ')}</p>
-            </figcaption>
-          </div>
-          <span className="pointer-events-none absolute -left-4 -top-4 h-24 w-24 rounded-full bg-red/40 blur-2xl" aria-hidden />
-          <span className="pointer-events-none absolute -bottom-6 -right-6 h-32 w-32 rounded-full bg-blue/50 blur-2xl" aria-hidden />
-        </figure>
-
+        {/* painel de vidro com os números, no lugar da foto */}
+        <div className="kin-fade lg:justify-self-end" style={{ '--d': '0.3s' } as React.CSSProperties}>
+          <ul className="grid gap-3 sm:grid-cols-3 lg:w-[300px] lg:grid-cols-1">
+            {stats.map((s) => (
+              <li
+                key={s.rotulo}
+                className="rounded-2xl border border-white/15 bg-night-deep/55 px-5 py-4 shadow-[0_20px_50px_-25px_rgba(0,0,0,0.9)] backdrop-blur-md"
+              >
+                <p className="flex items-baseline gap-1.5 font-display text-[2rem] font-extrabold leading-none tracking-tight text-white">
+                  {s.valor}
+                  {s.estrela && <Star size={16} className="translate-y-[-3px] fill-blue-light text-blue-light" />}
+                </p>
+                <p className="mt-1.5 text-[0.76rem] font-semibold text-slate-300">{s.rotulo}</p>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={medico.doctoralia}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-flex items-center gap-1.5 text-[0.78rem] font-bold text-blue-light transition-colors hover:text-white"
+          >
+            Ler as opiniões na {medico.avaliacoes.fonte}
+            <span aria-hidden>›</span>
+          </a>
+        </div>
       </Container>
     </section>
   )
