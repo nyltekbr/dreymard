@@ -21,21 +21,21 @@ export function Sobre() {
                 <img
                   src={medico.foto}
                   alt={`Dr. ${medico.nome}`}
-                  className="aspect-[4/5] w-full object-cover object-[50%_15%]"
+                  className="aspect-[4/5] w-full object-cover object-[50%_20%]"
                   loading="eager"
                   fetchPriority="high"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-night/90 via-night/10 to-transparent" />
                 <figcaption className="absolute inset-x-5 bottom-5">
                   <p className="font-display text-[1.1rem] font-extrabold leading-tight tracking-tight text-white">{medico.nomeCurto}</p>
-                  <p className="mt-1 text-[0.78rem] font-semibold text-blue-light">{medico.especialidades.join(' · ')}</p>
+                  <p className="mt-1 text-[0.78rem] font-semibold text-blue-light">{medico.crm} · {medico.rqe}</p>
                 </figcaption>
               </div>
               <a
                 href={medico.doctoralia}
                 target="_blank"
                 rel="noreferrer"
-                className="absolute -right-3 top-[56%] flex items-center gap-2.5 rounded-2xl border border-line bg-white px-3.5 py-2.5 shadow-xl transition-colors hover:border-blue/60 sm:-right-6"
+                className="absolute -right-3 top-6 flex items-center gap-2.5 rounded-2xl border border-line bg-white px-3.5 py-2.5 shadow-xl transition-colors hover:border-blue/60 sm:-right-6"
               >
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-blue text-white">
                   <Star size={16} className="fill-white" />

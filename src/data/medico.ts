@@ -10,7 +10,7 @@
 export const medico = {
   nome: 'Eymard Francisco Brito de Oliveira',
   nomeCurto: 'Dr. Eymard Brito de Oliveira',
-  crm: 'CRM 20595-MG',
+  crm: 'CRM-MG 20595',
   rqe: 'RQE 14.896',
   especialidades: ['Angiologia', 'Cirurgia Vascular', 'Cirurgia Cardiovascular'],
   anoFormatura: 1987,
@@ -23,7 +23,7 @@ export const medico = {
   // foi encontrado em 10/11/2026. Preencher com o @ (sem o arroba) e o bloco aparece.
   instagram: '',
   // Foto pública do perfil na Doctoralia. Trocar pelo arquivo oficial do médico.
-  foto: 'https://s3-sa-east-1.amazonaws.com/doctoralia.com.br/doctor/4f9921/4f99218adef7f322dfd89a92a6b3cd25_large.jpg',
+  foto: '/dr-eymard.jpg',
   doctoralia:
     'https://www.doctoralia.com.br/eymard-francisco-brito-de-oliveira/angiologista-cirurgiao-vascular-cirurgiao-cardiovascular/varginha',
   avaliacoes: { nota: '5,0', total: 501, fonte: 'Doctoralia' },

@@ -60,7 +60,7 @@ export function Header() {
       <div className="border-b border-white/10 bg-night/95 backdrop-blur-md">
         <Container className="flex h-[66px] items-center justify-between gap-4 sm:h-[76px]">
           <a href="#topo" className="flex items-center gap-3">
-            <img src="/logo-angiovas.png" alt="" className="h-10 w-10 object-contain sm:h-11 sm:w-11" aria-hidden />
+            <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white p-1 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.5)] sm:h-14 sm:w-14"><img src="/logo-angiovas.png" alt="" className="h-full w-full object-contain" aria-hidden /></span>
             <span className="leading-none">
               <span className="block font-display text-[1.05rem] font-extrabold tracking-tight text-white">Angiovas</span>
               <span className="mt-1 block text-[0.6rem] font-bold uppercase tracking-[0.1em] text-blue-light/80">Angiologia e Cirurgia Vascular</span>
