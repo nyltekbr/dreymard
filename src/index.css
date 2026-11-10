@@ -66,6 +66,10 @@ body {
 .hero-foto { filter: saturate(0.9) contrast(1.04); transform: scale(1); will-change: transform, opacity; }
 .hero-foto.is-ativa { animation: hero-zoom 7.6s ease-out forwards; }
 @keyframes hero-zoom { from { transform: scale(1); } to { transform: scale(1.08); } }
+/* logo sem cartão: halo branco em volta do traço para ler sobre foto clara ou escura */
+.logo-halo {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 14px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.55));
+}
 .hero-shade {
   background:
     linear-gradient(90deg, rgba(6, 26, 64, 0.96) 0%, rgba(6, 26, 64, 0.88) 38%, rgba(6, 26, 64, 0.42) 68%, rgba(6, 26, 64, 0.18) 100%),

@@ -1,4 +1,4 @@
-import { FileText, Phone, Star } from 'lucide-react'
+import { FileText, Phone } from 'lucide-react'
 import { clinica, medico } from '../data/medico'
 import { HeroImagens } from './HeroImagens'
 import { Button, Container, WhatsAppIcon } from './ui'
@@ -10,11 +10,6 @@ import { Button, Container, WhatsAppIcon } from './ui'
   seção "Prazer, sou o Dr. Eymard".
 */
 export function Hero() {
-  const stats = [
-    { valor: `${medico.anosDeFormado}`, rotulo: 'anos de formado' },
-    { valor: `${medico.avaliacoes.nota}`, rotulo: `${medico.avaliacoes.total} opiniões na ${medico.avaliacoes.fonte}`, estrela: true },
-    { valor: medico.crm.replace('CRM ', '').replace('-MG', ''), rotulo: `${medico.crm} · ${medico.rqe}` },
-  ]
   return (
     <section id="topo" className="relative overflow-hidden bg-night pt-[66px] text-white sm:pt-[100px]">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
@@ -64,31 +59,14 @@ export function Hero() {
           </p>
         </div>
 
-        {/* painel de vidro com os números, no lugar da foto */}
+        {/* logo da Angiovas em fundo transparente; o halo branco (CSS .logo-halo) garante leitura sobre qualquer foto do rodízio */}
         <div className="kin-fade lg:justify-self-end" style={{ '--d': '0.3s' } as React.CSSProperties}>
-          <ul className="grid gap-3 sm:grid-cols-3 lg:w-[300px] lg:grid-cols-1">
-            {stats.map((s) => (
-              <li
-                key={s.rotulo}
-                className="rounded-2xl border border-white/15 bg-night-deep/55 px-5 py-4 shadow-[0_20px_50px_-25px_rgba(0,0,0,0.9)] backdrop-blur-md"
-              >
-                <p className="flex items-baseline gap-1.5 font-display text-[2rem] font-extrabold leading-none tracking-tight text-white">
-                  {s.valor}
-                  {s.estrela && <Star size={16} className="translate-y-[-3px] fill-blue-light text-blue-light" />}
-                </p>
-                <p className="mt-1.5 text-[0.76rem] font-semibold text-slate-300">{s.rotulo}</p>
-              </li>
-            ))}
-          </ul>
-          <a
-            href={medico.doctoralia}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-3 inline-flex items-center gap-1.5 text-[0.78rem] font-bold text-blue-light transition-colors hover:text-white"
-          >
-            Ler as opiniões na {medico.avaliacoes.fonte}
-            <span aria-hidden>›</span>
-          </a>
+          <img
+            src="/logo-angiovas.png"
+            alt="Angiovas, Angiologia e Cirurgia Vascular, Sul de Minas"
+            className="logo-halo mx-auto w-full max-w-[300px] sm:max-w-[380px] lg:mx-0 lg:max-w-[460px]"
+            loading="eager"
+          />
         </div>
       </Container>
     </section>
