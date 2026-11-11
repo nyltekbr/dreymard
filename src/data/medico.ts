@@ -12,6 +12,8 @@ export const medico = {
   nomeCurto: 'Dr. Eymard Brito de Oliveira',
   crm: 'CRM-MG 20595',
   rqe: 'RQE 14.896',
+  // responsável técnico da clínica, no formato que o médico pediu (10/11/2026)
+  rt: 'RT: 20.595 - MG',
   especialidades: ['Angiologia', 'Cirurgia Vascular', 'Cirurgia Cardiovascular'],
   anoFormatura: 1987,
   // Informado pelo próprio médico em 10/11/2026 ("sou formado há 40 anos").

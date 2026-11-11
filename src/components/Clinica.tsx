@@ -24,11 +24,25 @@ export function Clinica() {
             </p>
           </div>
 
+          <div className="reveal md:row-span-2" data-delay="1">
+            <figure className="group relative overflow-hidden rounded-2xl border border-line shadow-lg">
+              <img
+                src="/clinica-doppler.jpg"
+                alt="Aparelho de ultrassom Doppler vascular ao lado da maca de exame"
+                className="aspect-[4/5] w-full object-cover object-[50%_35%] transition-transform duration-700 group-hover:scale-[1.04]"
+                loading="lazy"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-night/85 to-transparent px-5 pb-4 pt-12 text-[0.82rem] font-bold text-white">
+                Ultrassom Doppler arterial ou venoso
+              </figcaption>
+            </figure>
+          </div>
+
           <a
             href={clinica.mapaLink}
             target="_blank"
             rel="noreferrer"
-            className="reveal group flex items-center gap-5 rounded-2xl border border-line bg-page p-5 shadow-xs transition-all duration-300 hover:border-blue/60 hover:shadow-md md:mt-12"
+            className="reveal group flex items-center gap-5 rounded-2xl border border-line bg-page p-5 shadow-xs transition-all duration-300 hover:border-blue/60 hover:shadow-md"
             data-delay="1"
           >
             <img src="/logo-angiovas.png" alt="" className="h-16 w-16 shrink-0 object-contain transition-transform duration-500 group-hover:scale-105 sm:h-20 sm:w-20" aria-hidden />

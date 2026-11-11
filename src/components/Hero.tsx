@@ -67,6 +67,7 @@ export function Hero() {
             className="logo-halo mx-auto w-full max-w-[300px] sm:max-w-[380px] lg:mx-0 lg:max-w-[460px]"
             loading="eager"
           />
+          <p className="mx-auto mt-1 max-w-[300px] text-right text-[0.62rem] font-medium tracking-[0.04em] text-muted sm:max-w-[380px] lg:mx-0 lg:max-w-[460px]">{medico.rt}</p>
         </div>
       </Container>
     </section>

@@ -64,6 +64,7 @@ export function Header() {
             <span className="leading-none">
               <span className="block font-display text-[1.05rem] font-extrabold tracking-tight text-white">Angiovas</span>
               <span className="mt-1 block text-[0.6rem] font-bold uppercase tracking-[0.1em] text-blue-light/80">Angiologia e Cirurgia Vascular</span>
+              <span className="mt-1 block text-[0.55rem] font-medium tracking-[0.04em] text-white/60">{medico.rt}</span>
             </span>
           </a>
 
