@@ -24,6 +24,8 @@ export const medico = {
   // Instagram: o médico pediu para colocar na página. Nenhum perfil público
   // foi encontrado em 10/11/2026. Preencher com o @ (sem o arroba) e o bloco aparece.
   instagram: '',
+  // LinkedIn passado pela Ketlyn em 11/11/2026
+  linkedin: 'https://www.linkedin.com/in/eymard-oliveira-61019634',
   // Foto pública do perfil na Doctoralia. Trocar pelo arquivo oficial do médico.
   foto: '/dr-eymard.jpg',
   doctoralia:

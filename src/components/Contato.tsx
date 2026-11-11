@@ -1,6 +1,6 @@
 import { FileText, MapPin, Phone, Star } from 'lucide-react'
 import { clinica, instagramHref, medico } from '../data/medico'
-import { Button, Container, Eyebrow, InstagramIcon, SectionTitle, WhatsAppIcon } from './ui'
+import { Button, Container, Eyebrow, InstagramIcon, LinkedInIcon, SectionTitle, WhatsAppIcon } from './ui'
 
 const navegacao = [
   { href: '#topo', label: 'Início' },
@@ -47,6 +47,17 @@ export function Contato() {
                   <span>
                     <span className="block text-[0.7rem] font-extrabold uppercase tracking-wider text-muted">Telefone da clínica</span>
                     <span className="block font-display text-[1.1rem] font-extrabold text-navy">{clinica.telefone}</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href={medico.linkedin} target="_blank" rel="noreferrer" className="group flex items-center gap-4 rounded-2xl border border-line bg-white p-4 shadow-xs transition-all hover:border-blue/60 hover:shadow-md">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#0a66c2]/12 text-[#0a66c2]">
+                    <LinkedInIcon size={18} />
+                  </span>
+                  <span>
+                    <span className="block text-[0.7rem] font-extrabold uppercase tracking-wider text-muted">LinkedIn</span>
+                    <span className="block font-display text-[1.1rem] font-extrabold text-navy">{medico.nomeCurto}</span>
                   </span>
                 </a>
               </li>
@@ -131,6 +142,11 @@ export function Contato() {
                 <li>
                   <a href={medico.doctoralia} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-slate-400 hover:text-white">
                     <Star size={13} /> Avaliações na Doctoralia
+                  </a>
+                </li>
+                <li>
+                  <a href={medico.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-slate-400 hover:text-white">
+                    <LinkedInIcon size={13} /> LinkedIn
                   </a>
                 </li>
                 {instagramHref && (
